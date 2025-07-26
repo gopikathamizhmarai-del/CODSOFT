@@ -1,0 +1,88 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "provenance": [],
+      "authorship_tag": "ABX9TyNi8q8QI4S4ph3HKaqjOkEi",
+      "include_colab_link": true
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "markdown",
+      "metadata": {
+        "id": "view-in-github",
+        "colab_type": "text"
+      },
+      "source": [
+        "<a href=\"https://colab.research.google.com/github/gopikathamizhmarai-del/CODSOFT/blob/main/TASK%203\" target=\"_parent\"><img src=\"https://colab.research.google.com/assets/colab-badge.svg\" alt=\"Open In Colab\"/></a>"
+      ]
+    },
+    {
+      "cell_type": "code",
+      "source": [
+        "# Iris Flower Classification\n",
+        "\n",
+        "import pandas as pd\n",
+        "from sklearn.datasets import load_iris\n",
+        "from sklearn.model_selection import train_test_split\n",
+        "from sklearn.ensemble import RandomForestClassifier\n",
+        "from sklearn.metrics import classification_report\n",
+        "\n",
+        "# Load dataset\n",
+        "iris = load_iris()\n",
+        "df = pd.DataFrame(iris.data, columns=iris.feature_names)\n",
+        "df['target'] = iris.target\n",
+        "\n",
+        "# Features and labels\n",
+        "X = df.drop('target', axis=1)\n",
+        "y = df['target']\n",
+        "\n",
+        "# Split\n",
+        "X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2)\n",
+        "\n",
+        "# Model\n",
+        "model = RandomForestClassifier()\n",
+        "model.fit(X_train, y_train)\n",
+        "\n",
+        "# Predict and evaluate\n",
+        "y_pred = model.predict(X_test)\n",
+        "print(classification_report(y_test, y_pred, target_names=iris.target_names))"
+      ],
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "-hrrvWuq46cp",
+        "outputId": "6eb1034c-7fd2-45e9-a012-e37c2b4ad29a"
+      },
+      "execution_count": 9,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "name": "stdout",
+          "text": [
+            "              precision    recall  f1-score   support\n",
+            "\n",
+            "      setosa       1.00      1.00      1.00         9\n",
+            "  versicolor       0.89      1.00      0.94         8\n",
+            "   virginica       1.00      0.92      0.96        13\n",
+            "\n",
+            "    accuracy                           0.97        30\n",
+            "   macro avg       0.96      0.97      0.97        30\n",
+            "weighted avg       0.97      0.97      0.97        30\n",
+            "\n"
+          ]
+        }
+      ]
+    }
+  ]
+}
